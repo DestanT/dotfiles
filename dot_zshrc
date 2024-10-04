@@ -1,3 +1,5 @@
+# Amazon Q pre block. Keep at the top of this file.
+[[ -f "${HOME}/Library/Application Support/amazon-q/shell/zshrc.pre.zsh" ]] && builtin source "${HOME}/Library/Application Support/amazon-q/shell/zshrc.pre.zsh"
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:$HOME/.local/bin:/usr/local/bin:$PATH
 
@@ -26,8 +28,8 @@ ZSH_THEME="agnoster" # This is currently overridden by starship
 
 # Uncomment one of the following lines to change the auto-update behavior
 # zstyle ':omz:update' mode disabled  # disable automatic updates
-# zstyle ':omz:update' mode auto      # update automatically without asking
-zstyle ':omz:update' mode reminder  # just remind me to update when it's time
+zstyle ':omz:update' mode auto      # update automatically without asking
+# zstyle ':omz:update' mode reminder  # just remind me to update when it's time
 
 # Uncomment the following line to change how often to auto-update (in days).
 # zstyle ':omz:update' frequency 13
@@ -42,7 +44,7 @@ zstyle ':omz:update' mode reminder  # just remind me to update when it's time
 # DISABLE_AUTO_TITLE="true"
 
 # Uncomment the following line to enable command auto-correction.
-ENABLE_CORRECTION="true"
+ENABLE_CORRECTION="false"
 
 # Uncomment the following line to display red dots whilst waiting for completion.
 # You can also set it to another string to have that shown instead of the default red dots.
@@ -112,9 +114,9 @@ eval "$(/opt/homebrew/bin/brew shellenv)"
 eval "$(starship init zsh)"
 
 # ZSH Plugins
-source /opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+# source /opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 # Set the auto-suggestion color
-ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=#808080"
+# ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=242"
 
 # Load completion config
 if type brew &>/dev/null; then
@@ -124,12 +126,41 @@ if type brew &>/dev/null; then
   compinit
 fi
 
-source /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 # Disable underline - for zsh-syntax-highlighting
-(( ${+ZSH_HIGHLIGHT_STYLES} )) || typeset -A ZSH_HIGHLIGHT_STYLES
-ZSH_HIGHLIGHT_STYLES[path]='none'
-ZSH_HIGHLIGHT_STYLES[path_prefix]='none'
+source /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+ZSH_HIGHLIGHT_HIGHLIGHTERS+=(main regexp brackets cursor)
+typeset -A ZSH_HIGHLIGHT_STYLES
+# To have paths colored instead of underlined
+ZSH_HIGHLIGHT_STYLES[path]='fg=#427d23' # green
+# Incomplete paths
+ZSH_HIGHLIGHT_STYLES[path_prefix]='fg=#427d23' # green
+ZSH_HIGHLIGHT_STYLES[command]='fg=#6e99d6' # blue
+# To differentiate aliases from other command types
+ZSH_HIGHLIGHT_STYLES[alias]='fg=#6e99d6' # blue
+ZSH_HIGHLIGHT_STYLES[single-hyphen-option]='fg=#f4ee75' # yellow
+ZSH_HIGHLIGHT_STYLES[double-hyphen-option]='fg=#f4ee75' # yellow
+ZSH_HIGHLIGHT_STYLES[unknown-token]='fg=#f59508' # orange
+ZSH_HIGHLIGHT_STYLES[default]='fg=#f59508' # orange
+
+typeset -A ZSH_HIGHLIGHT_REGEXP
+ZSH_HIGHLIGHT_REGEXP+=('^rm .*' fg=#ba2b34,bold) # red
+ZSH_HIGHLIGHT_REGEXP+=('^rmdir .*' fg=#ba2b34,bold) # red
 
 # Enable Stripe completions
 fpath=(~/.stripe $fpath)
 autoload -Uz compinit && compinit -i
+
+# Disable correction
+unsetopt correct_all
+
+# Android Studio Setup
+export JAVA_HOME=/Library/Java/JavaVirtualMachines/zulu-17.jdk/Contents/Home
+export ANDROID_HOME=$HOME/Library/Android/sdk
+export PATH=$PATH:$ANDROID_HOME/emulator
+export PATH=$PATH:$ANDROID_HOME/platform-tools
+
+export PATH="/opt/homebrew/opt/node@20/bin:$PATH"
+export PATH=$PATH:$HOME/.maestro/bin
+
+# Amazon Q post block. Keep at the bottom of this file.
+[[ -f "${HOME}/Library/Application Support/amazon-q/shell/zshrc.post.zsh" ]] && builtin source "${HOME}/Library/Application Support/amazon-q/shell/zshrc.post.zsh"
