@@ -1,0 +1,31 @@
+title = " "
+macos-titlebar-style = tabs
+theme = Catppuccin Macchiato
+font-size = 14
+background-opacity = 0.8
+background-blur = false
+minimum-contrast = 1.1
+
+cursor-style = underline
+cursor-color = #ae85ff
+cursor-opacity = 0.9
+
+mouse-hide-while-typing = true
+macos-option-as-alt = true
+copy-on-select = clipboard
+
+unfocused-split-opacity = 1
+split-divider-color = #1a0741
+scrollbar = never
+maximize = true
+
+working-directory = "/Users/destan/code"
+window-inherit-working-directory = true
+window-new-tab-position = end
+tab-inherit-working-directory = true
+split-inherit-working-directory = true
+
+# Custom keybindings
+keybind = cmd+option+left=previous_tab
+keybind = cmd+option+right=next_tab
+keybind = shift+enter=text:\x1b\r
