@@ -1,5 +1,5 @@
-# Amazon Q pre block. Keep at the top of this file.
-[[ -f "${HOME}/Library/Application Support/amazon-q/shell/zshrc.pre.zsh" ]] && builtin source "${HOME}/Library/Application Support/amazon-q/shell/zshrc.pre.zsh"
+# Kiro CLI pre block. Keep at the top of this file.
+[[ -f "${HOME}/Library/Application Support/kiro-cli/shell/zshrc.pre.zsh" ]] && builtin source "${HOME}/Library/Application Support/kiro-cli/shell/zshrc.pre.zsh"
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:$HOME/.local/bin:/usr/local/bin:$PATH
 
@@ -102,25 +102,34 @@ source $ZSH/oh-my-zsh.sh
 # - $ZSH_CUSTOM/macos.zsh
 # For a full list of active aliases, run `alias`.
 #
-# Example aliases
+# Aliases
+## Config
+alias sourcezsh="source ~/.zshrc"
 alias zshconfig="code ~/.zshrc"
-alias ohmyzsh="code ~/.oh-my-zsh"
+alias gitconfig="code ~/.gitconfig"
+alias ghosttyconfig="code ~/.config/ghostty/config"
 alias hyperconfig="code ~/.hyper.js"
 alias starshipconfig="code ~/.config/starship.toml"
+alias ohmyzsh="code ~/.oh-my-zsh"
+## Directories
 alias cdc="cd ~/code"
-alias source-zsh="source ~/.zshrc"
-alias gitconfig="code ~/.gitconfig"
+## Utilities
+alias pfzf='$(fzf --preview "bat --color=always {}")'
+alias vault='cd /Users/destan/Library/Mobile\ Documents/iCloud~md~obsidian/Documents/Obsidian\ Vault'
 
 # Temp aliases
 alias stopPA="supabase stop --project-id HolidayPA"
-alias stopCL="supabase stop --project-id clinear"
+alias stopWRM="supabase stop --project-id we-rate-music"
+alias stopLocal="supabase stop --project-id local-supabase-dev"
+
+# Set up fzf key bindings and fuzzy completion
+source <(fzf --zsh)
 
 export LC_ALL="en_GB.UTF-8"
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 eval "$(/opt/homebrew/bin/brew shellenv)"
-eval "$(starship init zsh)"
 
 # ZSH Plugins
 # source /opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh
@@ -168,6 +177,7 @@ export ANDROID_HOME=$HOME/Library/Android/sdk
 export PATH=$PATH:$ANDROID_HOME/emulator
 export PATH=$PATH:$ANDROID_HOME/platform-tools
 
+export PATH="/opt/homebrew/opt/postgresql@16/bin:$PATH"
 export PATH="/opt/homebrew/opt/node@20/bin:$PATH"
 export PATH=$PATH:$HOME/.maestro/bin
 
@@ -184,5 +194,26 @@ export PYENV_ROOT="$HOME/.pyenv"
 eval "$(pyenv init - zsh)"
 eval "$(pyenv virtualenv-init -)"
 
-# Amazon Q post block. Keep at the bottom of this file.
-[[ -f "${HOME}/Library/Application Support/amazon-q/shell/zshrc.post.zsh" ]] && builtin source "${HOME}/Library/Application Support/amazon-q/shell/zshrc.post.zsh"
+# Added by Antigravity
+# export PATH="/Users/destan/.antigravity/antigravity/bin:$PATH"
+
+# The following lines have been added by Docker Desktop to enable Docker CLI completions.
+# fpath=(/Users/destan/.docker/completions $fpath)
+# autoload -Uz compinit
+# compinit
+# End of Docker CLI completions
+
+# Load ngrok completion
+# if command -v ngrok &>/dev/null; then
+#   eval "$(ngrok completion zsh)"
+# fi
+# End of ngrok completion
+
+# Load Angular CLI autocompletion.
+source <(ng completion script)
+
+# Initialise Starship
+eval "$(starship init zsh)"
+
+# Kiro CLI post block. Keep at the bottom of this file.
+[[ -f "${HOME}/Library/Application Support/kiro-cli/shell/zshrc.post.zsh" ]] && builtin source "${HOME}/Library/Application Support/kiro-cli/shell/zshrc.post.zsh"
